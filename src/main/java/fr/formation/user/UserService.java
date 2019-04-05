@@ -18,70 +18,121 @@ import java.util.List;
 @Service
 public class UserService implements UserDetailsService {
 
-	private UserRepository userRepository;
+    private UserRepository userRepository;
 
-	private UserRoleRepository userRoleRepository;
+    private UserRoleRepository userRoleRepository;
 
-	/**
-	 * Instantiates a new User service.
-	 *
-	 * @param userRepository     the user repository
-	 * @param userRoleRepository the user role repository
-	 */
-	@Autowired
-	public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository) {
-		this.userRepository = userRepository;
-		this.userRoleRepository = userRoleRepository;
-	}
+    /**
+     * Instantiates a new User service.
+     *
+     * @param userRepository     the user repository
+     * @param userRoleRepository the user role repository
+     */
+    @Autowired
+    public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository) {
+        this.userRepository = userRepository;
+        this.userRoleRepository = userRoleRepository;
+    }
 
-	/**
-	 * transform a list of roles (as {@link String}) into a list of {@link GrantedAuthority}
-	 *
-	 * @param userRoles
-	 *
-	 * @return
-	 */
-	private static Collection<? extends GrantedAuthority> transformToAuthorities(List<String> userRoles) {
-		String roles = StringUtils.collectionToCommaDelimitedString(userRoles);
-		return AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
-	}
+    /**
+     * transform a list of roles (as {@link String}) into a list of {@link GrantedAuthority}
+     *
+     * @param userRoles
+     * @return
+     */
+    private static Collection<? extends GrantedAuthority> transformToAuthorities(List<String> userRoles) {
+        String roles = StringUtils.collectionToCommaDelimitedString(userRoles);
+        return AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
+    }
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByUsername(username);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username);
 
-		if (user != null) {
-			List<String> roles = userRoleRepository.findRoleByUserName(username);
-			return new org.springframework.security.core.userdetails.User(username, user.getPassword(),
-					transformToAuthorities(roles));
-		} else {
-			throw new UsernameNotFoundException("No user exists with username: " + username);
-		}
+        if (user != null) {
+            List<String> roles = userRoleRepository.findRoleByUserName(username);
+            return new org.springframework.security.core.userdetails.User(username, user.getPassword(),
+                    transformToAuthorities(roles));
+        } else {
+            throw new UsernameNotFoundException("No user exists with username: " + username);
+        }
 
-	}
+    }
 
-	/**
-	 * Add a new user with the user repository
-	 *
-	 * @param username the username
-	 * @param password the password
-	 * @param roles    the roles
-	 */
-	public void addNewUser(String username, String password, String... roles) {
+    /**
+     * Add a new user with the user repository
+     *
+     * @param username the username
+     * @param password the password
+     * @param roles    the roles
+     */
+    public void addNewUser(String username, String password, String... roles) {
 
-		User user = new User();
-		user.setUsername(username);
-		user.setPassword(password);
-		user = userRepository.save(user);
+        User user = new User();
+        user.setUsername(username);
+        //user.setPassword(new BCryptPasswordEncode(password));
+        user.setPassword(password);
+        user = userRepository.save(user);
+        System.out.println("requ userService: " + username);
 
-		for (String role : roles) {
+        for (String role : roles) {
 
-			UserRole userRole = new UserRole();
-			userRole.setRole(role);
-			userRole.setUserId(user.getId());
+            UserRole userRole = new UserRole();
+            userRole.setRole(role);
+            userRole.setUserId(user.getId());
 
-			userRoleRepository.save(userRole);
-		}
+            userRoleRepository.save(userRole);
+        }
 
-	}
+    }
+
+
+    public void createNewUser(String username, String password, String email, String nomVille) {
+        System.out.println("requ new userService:: " + username);
+
+        //user.setPassword(new BCryptPasswordEncode(password));
+        if (checkPassword(password)) {
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+
+
+            user.setEmail(email);
+            user.setNomVille(nomVille);
+
+
+            user = userRepository.save(user);
+        }
+
+    }
+
+
+    public boolean checkPassword(String password) {
+
+        int min = 8;
+        int digit = 0;
+        int upCount = 0;
+        int loCount = 0;
+        if (password.length() >= min) {
+            for (int i = 0; i < password.length(); i++) {
+                char c = password.charAt(i);
+                if (Character.isUpperCase(c)) {
+                    upCount++;
+                }
+                if (Character.isLowerCase(c)) {
+                    loCount++;
+                }
+                if (Character.isDigit(c)) {
+                    digit++;
+                }
+
+            }
+            if (loCount >= 1 && upCount >= 1 && digit >= 1) {
+                return true;
+            }
+        }
+
+
+        return false;
+    }
 }

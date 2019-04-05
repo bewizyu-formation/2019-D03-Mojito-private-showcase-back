@@ -3,6 +3,8 @@ package fr.formation.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * The type User.
@@ -11,76 +13,137 @@ import javax.persistence.*;
 @Table(name = "user")
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	@Column(name = "username")
-	private String username;
-
-
-	@Column(name = "password")
-	@JsonIgnore
-	private String password;
+    @NotEmpty
+    @Column(name = "username")
+    private String username;
 
 
-	/**
-	 * Gets id.
-	 *
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
+    @Column(name = "password")
+    @JsonIgnore
+    private String password;
+
+    @Email(message = "Email should be valid")
+    @NotEmpty
+    @Column(name = "email")
+    private String email;
+
+    @NotEmpty
+    @Column(name = "nomVille")
+    private String nomVille;
+
+    @Column(name = "codeVille")
+    private String codeVille;
+
+    @Column(name = "nomDept")
+    private String nomDept;
+
+    @Column(name = "codeDept")
+    private String codeDept;
 
 
-	/**
-	 * Sets id.
-	 *
-	 * @param id the id
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
 
 
-	/**
-	 * Gets username.
-	 *
-	 * @return the username
-	 */
-	public String getUsername() {
-		return username;
-	}
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 
-	/**
-	 * Sets username.
-	 *
-	 * @param username the username
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    /**
+     * Gets username.
+     *
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
 
 
-	/**
-	 * Gets password.
-	 *
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
+    /**
+     * Sets username.
+     *
+     * @param username the username
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
 
-	/**
-	 * Sets password.
-	 *
-	 * @param password the password
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    /**
+     * Gets password.
+     *
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
 
+
+
+
+    /**
+     * Sets password.
+     *
+     * @param password the password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNomVille() {
+        return nomVille;
+    }
+
+    public void setNomVille(String nomVille) {
+        this.nomVille = nomVille;
+    }
+
+    public String getCodeVille() {
+        return codeVille;
+    }
+
+    public void setCodeVille(String codeVille) {
+        this.codeVille = codeVille;
+    }
+
+    public String getNomDept() {
+        return nomDept;
+    }
+
+    public void setNomDept(String nomDept) {
+        this.nomDept = nomDept;
+    }
+
+    public String getCodeDept() {
+        return codeDept;
+    }
+
+    public void setCodeDept(String codeDept) {
+        this.codeDept = codeDept;
+    }
 }

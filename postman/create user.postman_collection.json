@@ -1,0 +1,104 @@
+{
+	"info": {
+		"_postman_id": "7f55712d-7f92-4210-a305-7ca434df0bf4",
+		"name": "create user",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/users/?username=user&password=$2a$10$s5UmIje9JP521Bq0K9TMQuRHHQ5zssArlTsfHkfR7SMlyk3pESHIm&roles=admin Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/create/?username=user&password=Kamil&email=admin@free.fr&nomVille=Amiens",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"create",
+						""
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user"
+						},
+						{
+							"key": "password",
+							"value": "Kamil"
+						},
+						{
+							"key": "email",
+							"value": "admin@free.fr"
+						},
+						{
+							"key": "nomVille",
+							"value": "Amiens"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/users/?username=user&password=$2a$10$s5UmIje9JP521Bq0K9TMQuRHHQ5zssArlTsfHkfR7SMlyk3pESHIm&roles=admin",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/?username=user&password=$2a$10$s5UmIje9JP521Bq0K9TMQuRHHQ5zssArlTsfHkfR7SMlyk3pESHIm&roles=admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						""
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user"
+						},
+						{
+							"key": "password",
+							"value": "$2a$10$s5UmIje9JP521Bq0K9TMQuRHHQ5zssArlTsfHkfR7SMlyk3pESHIm"
+						},
+						{
+							"key": "roles",
+							"value": "admin"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
