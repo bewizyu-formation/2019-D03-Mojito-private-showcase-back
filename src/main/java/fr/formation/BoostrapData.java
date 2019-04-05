@@ -39,11 +39,13 @@ public class BoostrapData {
 		userService.addNewUser(
 				"admin",
 				passwordEncoder.encode("admin"),
+				"admin@digi.fr",
 				SecurityConstants.ROLE_ADMIN
 		);
 		userService.addNewUser(
 				"user",
 				passwordEncoder.encode("user"),
+				"user@digi.fr",
 				SecurityConstants.ROLE_USER
 		);
 	}

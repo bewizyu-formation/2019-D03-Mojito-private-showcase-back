@@ -1,10 +1,12 @@
 package fr.formation.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * The type User.
@@ -17,21 +19,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty
-    @Column(name = "username")
+    @NotNull
+    @Column(name = "username",unique = true )
     private String username;
 
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
+    @NotNull
     @JsonIgnore
+    @Length(min = 8)
     private String password;
 
     @Email(message = "Email should be valid")
-    @NotEmpty
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @NotEmpty
+
     @Column(name = "nomVille")
     private String nomVille;
 

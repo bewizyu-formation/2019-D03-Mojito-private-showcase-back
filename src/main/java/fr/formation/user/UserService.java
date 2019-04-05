@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -21,6 +22,8 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
 
     private UserRoleRepository userRoleRepository;
+
+    private PasswordEncoder passwordEncoder;
 
     /**
      * Instantiates a new User service.
@@ -66,14 +69,13 @@ public class UserService implements UserDetailsService {
      * @param password the password
      * @param roles    the roles
      */
-    public void addNewUser(String username, String password, String... roles) {
+    public void addNewUser(String username, String password, String email, String... roles) {
 
         User user = new User();
         user.setUsername(username);
-        //user.setPassword(new BCryptPasswordEncode(password));
         user.setPassword(password);
+        user.setEmail(email);
         user = userRepository.save(user);
-        System.out.println("requ userService: " + username);
 
         for (String role : roles) {
 
@@ -87,19 +89,20 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public void createNewUser(String username, String password, String email, String nomVille) {
-        System.out.println("requ new userService:: " + username);
+    public void createNewUser(String username, String password, String email, String nomVille,
+                              String codeVille, String nomDept, String codeDept) {
 
-        //user.setPassword(new BCryptPasswordEncode(password));
+
+
         if (checkPassword(password)) {
             User user = new User();
             user.setUsername(username);
             user.setPassword(password);
-
-
             user.setEmail(email);
             user.setNomVille(nomVille);
-
+            user.setCodeVille(codeVille);
+            user.setCodeDept(codeDept);
+            user.setNomDept(nomDept);
 
             user = userRepository.save(user);
         }
