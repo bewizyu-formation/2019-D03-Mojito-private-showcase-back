@@ -22,8 +22,10 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
 
 
 
@@ -52,7 +54,9 @@ public class UserController {
 						   @RequestParam String codeVille, @RequestParam String nomDept, @RequestParam String codeDept){
 
 		logger.info("requ controller signin: " + username  + "password " +  password);
+
 		userService.createNewUser(username, passwordEncoder.encode(password), email,nomVille,codeVille,nomDept,codeDept);
+
 
 
 

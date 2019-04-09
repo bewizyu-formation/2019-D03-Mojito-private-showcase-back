@@ -18,6 +18,7 @@ import java.util.List;
 @Component
 public class BoostrapData {
 
+
     private UserService userService;
 
     private ArtisteService artisteService;
@@ -79,5 +80,6 @@ public class BoostrapData {
 
         );
     }
+
 
 }
