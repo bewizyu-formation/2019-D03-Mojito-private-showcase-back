@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f9330263-fd54-4255-8a4d-97a8ec046344",
+		"_postman_id": "12eedb9f-4576-43c1-81a7-9a27e6662827",
 		"name": "PrivateShowCase Admin",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -68,7 +68,10 @@
 						"value": "{{token}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{uri}}/hello/admin",
 					"host": [
@@ -104,7 +107,10 @@
 						"value": "{{token}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{uri}}/hello/user",
 					"host": [
@@ -140,7 +146,10 @@
 						"value": "{{token}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{uri}}/hello/user",
 					"host": [
