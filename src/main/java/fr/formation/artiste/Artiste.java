@@ -72,7 +72,7 @@ public class Artiste {
     @Column(name = "codeVille")
     private String codeVille;
 
-    @Column(name = "nomDept")
+
 
 
     /**
