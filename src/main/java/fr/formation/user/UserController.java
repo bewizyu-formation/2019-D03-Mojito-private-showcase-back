@@ -22,9 +22,10 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+
 
 
 
