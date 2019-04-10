@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "94ac0c06-e880-4805-ba5b-1f349b52b714",
+		"name": "WS Artiste",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4a5b2f2e-ce33-4541-828c-343517425479",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status is 200\"] = responseCode.code == \"200\""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/hello/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hello",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/users/?username=user&password=$2a$10$s5UmIje9JP521Bq0K9TMQuRHHQ5zssArlTsfHkfR7SMlyk3pESHIm&roles=admin Copy Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/artiste/create/?namedArtist=user2&image=admin@free.f&grade=dSfefergkg1&longDescription=Amiens&shortDescriptiont=01&webSite=Ain&phoneNumber=80021&password=&email=i&nomVille=&codeVille=&departmentChosen=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"artiste",
+						"create",
+						""
+					],
+					"query": [
+						{
+							"key": "namedArtist",
+							"value": "user2"
+						},
+						{
+							"key": "image",
+							"value": "admin@free.f"
+						},
+						{
+							"key": "grade",
+							"value": "dSfefergkg1"
+						},
+						{
+							"key": "longDescription",
+							"value": "Amiens"
+						},
+						{
+							"key": "shortDescriptiont",
+							"value": "01"
+						},
+						{
+							"key": "webSite",
+							"value": "Ain"
+						},
+						{
+							"key": "phoneNumber",
+							"value": "80021"
+						},
+						{
+							"key": "password",
+							"value": ""
+						},
+						{
+							"key": "email",
+							"value": "i"
+						},
+						{
+							"key": "nomVille",
+							"value": ""
+						},
+						{
+							"key": "codeVille",
+							"value": ""
+						},
+						{
+							"key": "departmentChosen",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

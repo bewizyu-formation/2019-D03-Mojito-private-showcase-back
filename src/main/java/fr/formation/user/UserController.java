@@ -4,6 +4,7 @@ import fr.formation.hello.HelloController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -20,6 +21,11 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 
 
 
@@ -47,8 +53,10 @@ public class UserController {
 	public void signin(@RequestParam String username, @RequestParam String password, @RequestParam String email, @RequestParam String nomVille,
 						   @RequestParam String codeVille, @RequestParam String nomDept, @RequestParam String codeDept){
 
-		logger.info("requ controller signin: " + username  + " / password " +  password);
-		userService.createNewUser(username,password, email,nomVille,codeVille,nomDept,codeDept);
+		logger.info("requ controller signin: " + username  + "password " +  password);
+		userService.createNewUser(username, passwordEncoder.encode(password), email,nomVille,codeVille,nomDept,codeDept);
+
+
 
 
 
