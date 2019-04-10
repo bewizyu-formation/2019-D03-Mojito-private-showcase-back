@@ -47,7 +47,7 @@ public class UserController {
 	public void signin(@RequestParam String username, @RequestParam String password, @RequestParam String email, @RequestParam String nomVille,
 						   @RequestParam String codeVille, @RequestParam String nomDept, @RequestParam String codeDept){
 
-		logger.info("requ controller signin: " + username  + "password " +  password);
+		logger.info("requ controller signin: " + username  + " / password " +  password);
 		userService.createNewUser(username,password, email,nomVille,codeVille,nomDept,codeDept);
 
 
