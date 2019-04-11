@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f87c9901-26a5-4d09-8284-d2f5ad3f4689",
+		"_postman_id": "0e3d38c8-3183-4bdc-b8bf-555d068649a9",
 		"name": "WS Commune / Departement",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,10 +12,10 @@
 					"listen": "test",
 					"script": {
 						"id": "4a5b2f2e-ce33-4541-828c-343517425479",
-						"type": "text/javascript",
 						"exec": [
 							"tests[\"Status is 200\"] = responseCode.code == \"200\""
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -32,15 +32,21 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/hello/user",
+					"raw": "http://localhost:8080/communes/?nom=Amiens",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"hello",
-						"user"
+						"communes",
+						""
+					],
+					"query": [
+						{
+							"key": "nom",
+							"value": "Amiens"
+						}
 					]
 				}
 			},
@@ -53,10 +59,10 @@
 					"listen": "test",
 					"script": {
 						"id": "4a5b2f2e-ce33-4541-828c-343517425479",
-						"type": "text/javascript",
 						"exec": [
 							"tests[\"Status is 200\"] = responseCode.code == \"200\""
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -73,15 +79,15 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/hello/user",
+					"raw": "http://localhost:8080/departements/01",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"hello",
-						"user"
+						"departements",
+						"01"
 					]
 				}
 			},

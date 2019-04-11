@@ -6,16 +6,16 @@
 	},
 	"item": [
 		{
-			"name": "Get Name",
+			"name": "Get Artist By Id",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "4a5b2f2e-ce33-4541-828c-343517425479",
-						"type": "text/javascript",
 						"exec": [
 							"tests[\"Status is 200\"] = responseCode.code == \"200\""
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -32,15 +32,117 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/hello/user",
+					"raw": "http://localhost:8080/artistes/details?id=5",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"hello",
-						"user"
+						"artistes",
+						"details"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Artist By Dept",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4a5b2f2e-ce33-4541-828c-343517425479",
+						"exec": [
+							"tests[\"Status is 200\"] = responseCode.code == \"200\""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/artistes/listByDept/?codeDept=38",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"artistes",
+						"listByDept",
+						""
+					],
+					"query": [
+						{
+							"key": "codeDept",
+							"value": "38"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Artists By Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4a5b2f2e-ce33-4541-828c-343517425479",
+						"exec": [
+							"tests[\"Status is 200\"] = responseCode.code == \"200\""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/artistes/name/?name=Daft Punk",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"artistes",
+						"name",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Daft Punk"
+						}
 					]
 				}
 			},
@@ -63,65 +165,65 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/artiste/create/?namedArtist=user2&image=admin@free.f&grade=dSfefergkg1&longDescription=Amiens&shortDescriptiont=01&webSite=Ain&phoneNumber=80021&password=&email=i&nomVille=&codeVille=&departmentChosen=",
+					"raw": "http://localhost:8080/artistes/create/?namedArtist=Daft Punk2&image=https://static1.squarespace.com/static/5372c95be4b0875c414451cb/t/56942a2669a91a5371ee87a1/1452550710892/?format=750w&grade=3&longDescription=Daft Punk (prononcé en anglais est un groupe de musique électronique français, originaire de Paris. Composé de Thomas Bangalter et Guy-Manuel de Homem-Christo, le groupe est actif depuis 1993, et participe à la création et à la démocratisation du mouvement de musique électronique baptisé french touch. Ils font partie des artistes français s'exportant le mieux à l'étranger, et ce depuis la sortie de leur premier véritable succès, Da Funk en 1996. Une des originalités de Daft Punk est la culture de leur notoriété d'artistes indépendants et sans visage, portant toujours en public des casques et des costumes. Ils s'inspirent sur ce point du film Phantom of the Paradise de Brian De Palma.&shortDescription=Daft Punk, est un groupe de musique électronique français, originaire de Paris. Composé de Thomas Bangalter et Guy-Manuel de Homem-Christo, le groupe est actif depuis 1993&webSite=https://daftpunk.com/&email=admin2@free.com&nomVille=Amiens&codeVille=80021&departmentChosen=01,69,38,31&phoneNumber=303-504-650&password=Fddfdfddrrfe",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"artiste",
+						"artistes",
 						"create",
 						""
 					],
 					"query": [
 						{
 							"key": "namedArtist",
-							"value": "user2"
+							"value": "Daft Punk2"
 						},
 						{
 							"key": "image",
-							"value": "admin@free.f"
+							"value": "https://static1.squarespace.com/static/5372c95be4b0875c414451cb/t/56942a2669a91a5371ee87a1/1452550710892/?format=750w"
 						},
 						{
 							"key": "grade",
-							"value": "dSfefergkg1"
+							"value": "3"
 						},
 						{
 							"key": "longDescription",
-							"value": "Amiens"
+							"value": "Daft Punk (prononcé en anglais est un groupe de musique électronique français, originaire de Paris. Composé de Thomas Bangalter et Guy-Manuel de Homem-Christo, le groupe est actif depuis 1993, et participe à la création et à la démocratisation du mouvement de musique électronique baptisé french touch. Ils font partie des artistes français s'exportant le mieux à l'étranger, et ce depuis la sortie de leur premier véritable succès, Da Funk en 1996. Une des originalités de Daft Punk est la culture de leur notoriété d'artistes indépendants et sans visage, portant toujours en public des casques et des costumes. Ils s'inspirent sur ce point du film Phantom of the Paradise de Brian De Palma."
 						},
 						{
-							"key": "shortDescriptiont",
-							"value": "01"
+							"key": "shortDescription",
+							"value": "Daft Punk, est un groupe de musique électronique français, originaire de Paris. Composé de Thomas Bangalter et Guy-Manuel de Homem-Christo, le groupe est actif depuis 1993"
 						},
 						{
 							"key": "webSite",
-							"value": "Ain"
-						},
-						{
-							"key": "phoneNumber",
-							"value": "80021"
-						},
-						{
-							"key": "password",
-							"value": ""
+							"value": "https://daftpunk.com/"
 						},
 						{
 							"key": "email",
-							"value": "i"
+							"value": "admin2@free.com"
 						},
 						{
 							"key": "nomVille",
-							"value": ""
+							"value": "Amiens"
 						},
 						{
 							"key": "codeVille",
-							"value": ""
+							"value": "80021"
 						},
 						{
 							"key": "departmentChosen",
-							"value": ""
+							"value": "01,69,38,31"
+						},
+						{
+							"key": "phoneNumber",
+							"value": "303-504-650"
+						},
+						{
+							"key": "password",
+							"value": "Fddfdfddrrfe"
 						}
 					]
 				}

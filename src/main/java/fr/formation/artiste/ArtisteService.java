@@ -1,7 +1,11 @@
 package fr.formation.artiste;
 
+import fr.formation.hello.HelloController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 
@@ -12,6 +16,11 @@ import java.util.List;
 public class ArtisteService {
 
     private ArtisteRepository artisteRepository;
+
+    /**
+     * The Logger.
+     */
+    Logger logger = LoggerFactory.getLogger(HelloController.class);
 
 
     /**
@@ -68,4 +77,39 @@ public class ArtisteService {
 
 
     }
+
+    /**
+     * Get artist by Id
+     * @param id
+     * @return
+     */
+    public Artiste getArtiste(long id) {
+        return artisteRepository.findById(id);
+
+
+    }
+
+    /**
+     * Get artist by name
+     *
+     * @param nameArtist
+     * @return
+     */
+    public Artiste getArtisteByName(String nameArtist) {
+        return artisteRepository.findByNamedArtist(nameArtist);
+
+
+    }
+
+    /**
+     * Get a list of artist by Dept
+     * @param codeDept
+     * @return
+     */
+    public List<Artiste> getArtisteByDept(String codeDept) {
+        return artisteRepository.findByDepartmentChosen(codeDept);
+
+
+    }
+
 }

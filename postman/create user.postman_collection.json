@@ -22,7 +22,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/users/create/?username=user&password=Kamil&email=admin@free.fr&nomVille=Amiens",
+					"raw": "http://localhost:8080/users/create/?username=user2&email=admin@free.f&password=dSfefergkg1&nomVille=Amiens&codeVille=01&nomDept=Ain&codeDept=80021",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -36,19 +36,31 @@
 					"query": [
 						{
 							"key": "username",
-							"value": "user"
-						},
-						{
-							"key": "password",
-							"value": "Kamil"
+							"value": "user2"
 						},
 						{
 							"key": "email",
-							"value": "admin@free.fr"
+							"value": "admin@free.f"
+						},
+						{
+							"key": "password",
+							"value": "dSfefergkg1"
 						},
 						{
 							"key": "nomVille",
 							"value": "Amiens"
+						},
+						{
+							"key": "codeVille",
+							"value": "01"
+						},
+						{
+							"key": "nomDept",
+							"value": "Ain"
+						},
+						{
+							"key": "codeDept",
+							"value": "80021"
 						}
 					]
 				}
