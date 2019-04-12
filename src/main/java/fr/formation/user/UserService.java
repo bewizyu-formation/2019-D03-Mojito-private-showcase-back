@@ -1,5 +1,6 @@
 package fr.formation.user;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -89,12 +90,13 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public void createNewUser(String username, String password, String email, String nomVille,
-                              String codeVille, String nomDept, String codeDept) {
+    public User createNewUser(String username, String password, String email, String nomVille,
+                              String codeVille, String nomDept, String codeDept) throws UserException {
 
-
-
-        if (checkPassword(password)) {
+        try {
+            if (!checkPassword(password)) {
+               throw new UserException("Le format du mot de passe est invalide");
+            }
             User user = new User();
             user.setUsername(username);
             user.setPassword(password);
@@ -104,7 +106,14 @@ public class UserService implements UserDetailsService {
             user.setCodeDept(codeDept);
             user.setNomDept(nomDept);
 
-            user = userRepository.save(user);
+            return userRepository.save(user);
+        }
+        catch (ConstraintViolationException e) {
+            throw new UserException("Identifiant déjà existant");
+        }catch (UserException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new UserException("Une erreur inconnue est survenue");
         }
 
     }
@@ -128,14 +137,11 @@ public class UserService implements UserDetailsService {
                 if (Character.isDigit(c)) {
                     digit++;
                 }
-
             }
             if (loCount >= 1 && upCount >= 1 && digit >= 1) {
                 return true;
             }
         }
-
-
         return false;
     }
 }

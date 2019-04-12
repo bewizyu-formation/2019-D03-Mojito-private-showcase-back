@@ -4,6 +4,8 @@ import fr.formation.hello.HelloController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,15 +52,12 @@ public class UserController {
 
 
 	@PostMapping("/create")
-	public void signin(@RequestParam String username, @RequestParam String password, @RequestParam String email, @RequestParam String nomVille,
-						   @RequestParam String codeVille, @RequestParam String nomDept, @RequestParam String codeDept){
+	public ResponseEntity<User> signin(@RequestParam String username, @RequestParam String password, @RequestParam String email, @RequestParam String nomVille,
+								 @RequestParam String codeVille, @RequestParam String nomDept, @RequestParam String codeDept) throws UserException{
 
 		logger.info("requ controller signin: " + username  + "password " +  password);
-		userService.createNewUser(username, passwordEncoder.encode(password), email,nomVille,codeVille,nomDept,codeDept);
-
-
-
-
+		User user = userService.createNewUser(username, passwordEncoder.encode(password), email, nomVille, codeVille, nomDept, codeDept);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
 	}
 
