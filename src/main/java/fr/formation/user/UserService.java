@@ -1,12 +1,14 @@
 package fr.formation.user;
 
+import fr.formation.hello.HelloController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -23,7 +25,11 @@ public class UserService implements UserDetailsService {
 
     private UserRoleRepository userRoleRepository;
 
-    private PasswordEncoder passwordEncoder;
+
+    /**
+     * The Logger.
+     */
+    Logger logger = LoggerFactory.getLogger(HelloController.class);
 
     /**
      * Instantiates a new User service.
@@ -32,9 +38,12 @@ public class UserService implements UserDetailsService {
      * @param userRoleRepository the user role repository
      */
     @Autowired
-    public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository) {
+    public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository
+    ) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
+
+
     }
 
     /**
@@ -88,10 +97,19 @@ public class UserService implements UserDetailsService {
 
     }
 
+    /**
+     * create a new user
+     *
+     * @param username
+     * @param password
+     * @param email
+     * @param nomVille
+     * @param codeVille
+     * @param codeDept
+     */
 
     public void createNewUser(String username, String password, String email, String nomVille,
-                              String codeVille, String nomDept, String codeDept) {
-
+                              String codeVille,  String codeDept) {
 
 
         if (checkPassword(password)) {
@@ -102,10 +120,12 @@ public class UserService implements UserDetailsService {
             user.setNomVille(nomVille);
             user.setCodeVille(codeVille);
             user.setCodeDept(codeDept);
-            user.setNomDept(nomDept);
 
             user = userRepository.save(user);
         }
+
+
+        logger.info(" ( user service add user ) " + nomVille + " , " + codeVille +  " , " + codeDept);
 
     }
 
@@ -131,11 +151,21 @@ public class UserService implements UserDetailsService {
 
             }
             if (loCount >= 1 && upCount >= 1 && digit >= 1) {
+                logger.info("Passwod Correct " );
                 return true;
             }
+            else {
+                logger.info("Passwod incorrect => LowerCase : " + loCount + ", UpperCase : "+ upCount +", Digit : " +digit );
+
+            }
+        }
+        else {
+            logger.info("Passwod incorrect => Lenght : "  + password.length() );
+
         }
 
 
         return false;
     }
+
 }
