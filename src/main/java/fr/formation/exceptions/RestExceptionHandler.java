@@ -1,5 +1,6 @@
 package fr.formation.exceptions;
 
+import fr.formation.user.UserException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,11 +9,22 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = { Exception.class})
-    protected ResponseEntity<Object> handleConflict( RuntimeException ex, WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+    @ExceptionHandler({ Exception.class})
+    protected ResponseEntity<CustomErrorResponse> manageException( Exception ex) {
+
+        HttpStatus status;
+
+        if (ex instanceof UserException) {
+            status = HttpStatus.BAD_REQUEST;
+        } else {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        CustomErrorResponse cer = new CustomErrorResponse();
+        cer.setError(ex.getMessage());
+        return new ResponseEntity<>(cer, status);
     }
 }

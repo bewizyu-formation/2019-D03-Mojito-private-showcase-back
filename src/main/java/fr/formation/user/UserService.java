@@ -91,12 +91,9 @@ public class UserService implements UserDetailsService {
 
 
     public User createNewUser(String username, String password, String email, String nomVille,
-                              String codeVille, String nomDept, String codeDept) throws UserException {
+                              String codeVille, String nomDept, String codeDept) throws UserException{
 
         try {
-            if (!checkPassword(password)) {
-               throw new UserException("Le format du mot de passe est invalide");
-            }
             User user = new User();
             user.setUsername(username);
             user.setPassword(password);
@@ -105,19 +102,31 @@ public class UserService implements UserDetailsService {
             user.setCodeVille(codeVille);
             user.setCodeDept(codeDept);
             user.setNomDept(nomDept);
-
+            if(isUsernameExist(username)){
+                throw new UserException("Identifiant déjà existant");
+            }
+            if (!checkPassword(password)) {
+                throw new UserException("Le format du mot de passe est invalide");
+            }
             return userRepository.save(user);
         }
         catch (ConstraintViolationException e) {
             throw new UserException("Identifiant déjà existant");
         }catch (UserException e) {
             throw e;
-        } catch (Exception e) {
+        }catch (Exception e) {
             throw new UserException("Une erreur inconnue est survenue");
         }
-
     }
 
+    public boolean isUsernameExist(String username) {
+
+        User user = userRepository.findByUsername(username);
+        if (user != null && user.getUsername().equals(username)){
+            return true;
+        }
+        return false;
+    }
 
     public boolean checkPassword(String password) {
 
@@ -144,4 +153,4 @@ public class UserService implements UserDetailsService {
         }
         return false;
     }
-}
+  }
