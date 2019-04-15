@@ -48,7 +48,11 @@ public class CommuneController {
 	public ResponseEntity<List<Commune>> getCommunes(@RequestParam final String nom) {
 		List<Commune> communes = this.communeService.getCommunes(nom);
 		if (communes != null) {
-			communes = communes.subList(0, 19);
+			if(communes.size() > 19)
+			{ communes = communes.subList(0, 19); }
+			else  	{ communes = communes.subList(0, communes.size() ); }
+
+
 		}
 		return new ResponseEntity<>(communes, HttpStatus.OK);
 	}
