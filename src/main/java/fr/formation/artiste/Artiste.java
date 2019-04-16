@@ -28,6 +28,10 @@ public class Artiste {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
+    @Column(name = "username",unique = true )
+    private String username;
+
     @Column(name = "namedArtist")
     @NotNull
     private String namedArtist;
@@ -48,7 +52,7 @@ public class Artiste {
     @Column(name = "webSite")
     private String webSite;
 
-    @Column(name = "phone")
+    @Column(name = "phoneNumber")
     private String phoneNumber;
 
     @Column(name = "password")
@@ -61,10 +65,7 @@ public class Artiste {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @ElementCollection
-    //@Column(name = "departmentChosen")
-    @Column
-    private List<String> departmentChosen;
+
 
     @Column(name = "nomVille")
     private String nomVille;
@@ -72,7 +73,10 @@ public class Artiste {
     @Column(name = "codeVille")
     private String codeVille;
 
-    @Column(name = "nomDept")
+    @Column(name = "codeDept")
+    private String codeDept;
+
+
 
 
     /**
@@ -254,13 +258,20 @@ public class Artiste {
         this.codeVille = codeVille;
     }
 
-    public List<String> getDepartmentChosen() {
-        return departmentChosen;
+
+    public String getCodeDept() {
+        return codeDept;
     }
 
-    public void setDepartmentChosen(List<String> departmentChosen) {
-        this.departmentChosen = departmentChosen;
+    public void setCodeDept(String codeDept) {
+        this.codeDept = codeDept;
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import sun.reflect.generics.tree.VoidDescriptor;
 
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class ArtisteController {
      */
     @PostMapping("/create")
     public void signin(
+            @RequestParam String username,
             @RequestParam String namedArtist,
             @RequestParam String image,
             @RequestParam double grade,
@@ -53,19 +55,87 @@ public class ArtisteController {
             @RequestParam String phoneNumber,
             @RequestParam String password,
             @RequestParam String email,
-            @RequestParam(value = "departmentChosen") List<String> departmentChosen,
             @RequestParam String nomVille,
-            @RequestParam String codeVille) {
+            @RequestParam String codeVille,
+            @RequestParam String codeDept
 
-        logger.info("1. Controller Artiste signin: " + departmentChosen.get(1) + " || " + namedArtist);
+    ) {
 
 
-        artisteService.addNewArtiste(namedArtist, image, grade,
-                longDescription, shortDescription, webSite,
-                phoneNumber, passwordEncoder.encode(password),
-                email, departmentChosen,
-                nomVille, codeVille);
 
+        if (checkPassword(password)) {
+            artisteService.addNewArtiste(username,namedArtist, image, grade,
+                    longDescription, shortDescription, webSite,
+                    phoneNumber, passwordEncoder.encode(password),
+                    email,
+                    nomVille, codeVille ,codeDept );
+
+            logger.info("1. Controller Artiste signin: " +" || " + namedArtist + "  " +  phoneNumber) ;
+        }
+
+    }
+
+    @GetMapping("/details")
+    public void getArtiste(@RequestParam long id) {
+        artisteService.getArtiste(id);
+
+        logger.info("1. Controller find Artiste details: " + id );
+    }
+
+    @GetMapping("/name")
+    public void getArtisteByName(@RequestParam String name) {
+        artisteService.getArtisteByName(name);
+
+        logger.info("1. Controller find Artiste by Name : "+ name );
+    }
+
+
+    @GetMapping("/listByDept")
+    public void getArtisteByDept(@RequestParam String codeDept) {
+
+        artisteService.getArtisteByDept(codeDept);
+        logger.info("1. Controller ListeArtiste find by dept: " + codeDept );
+        logger.info("1. Controller ListeArtiste object: " + artisteService.getArtisteByDept(codeDept) );
+
+    }
+
+
+    public boolean checkPassword(String password) {
+
+        int min = 8;
+        int digit = 0;
+        int upCount = 0;
+        int loCount = 0;
+        if (password.length() >= min) {
+            for (int i = 0; i < password.length(); i++) {
+                char c = password.charAt(i);
+                if (Character.isUpperCase(c)) {
+                    upCount++;
+                }
+                if (Character.isLowerCase(c)) {
+                    loCount++;
+                }
+                if (Character.isDigit(c)) {
+                    digit++;
+                }
+
+            }
+            if (loCount >= 1 && upCount >= 1 && digit >= 1) {
+                logger.info("Passwod Correct " );
+                return true;
+            }
+            else {
+                logger.info("Passwod incorrect => LowerCase : " + loCount + ", UpperCase : "+ upCount +", Digit : " +digit );
+
+            }
+        }
+        else {
+            logger.info("Passwod incorrect => Lenght : "  + password.length() );
+
+        }
+
+
+        return false;
     }
 
 

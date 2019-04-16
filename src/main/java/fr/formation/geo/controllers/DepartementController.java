@@ -16,7 +16,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/departements")
-@Secured(SecurityConstants.ROLE_USER)
 public class DepartementController {
 
 	private DepartementService departementService;

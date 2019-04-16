@@ -5,7 +5,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -41,12 +40,8 @@ public class User {
     @Column(name = "codeVille")
     private String codeVille;
 
-    @Column(name = "nomDept")
-    private String nomDept;
-
     @Column(name = "codeDept")
     private String codeDept;
-
 
     /**
      * Gets id.
@@ -57,6 +52,14 @@ public class User {
         return id;
     }
 
+	/**
+	 * Sets username.
+	 *
+	 * @param username the username
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
     /**
      * Sets id.
@@ -67,6 +70,14 @@ public class User {
         this.id = id;
     }
 
+	/**
+	 * Gets password.
+	 *
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
 
     /**
      * Gets username.
@@ -77,37 +88,14 @@ public class User {
         return username;
     }
 
-
-    /**
-     * Sets username.
-     *
-     * @param username the username
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-
-    /**
-     * Gets password.
-     *
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-
-
-
-    /**
-     * Sets password.
-     *
-     * @param password the password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	/**
+	 * Sets password.
+	 *
+	 * @param password the password
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 
     public String getEmail() {
@@ -132,14 +120,6 @@ public class User {
 
     public void setCodeVille(String codeVille) {
         this.codeVille = codeVille;
-    }
-
-    public String getNomDept() {
-        return nomDept;
-    }
-
-    public void setNomDept(String nomDept) {
-        this.nomDept = nomDept;
     }
 
     public String getCodeDept() {
