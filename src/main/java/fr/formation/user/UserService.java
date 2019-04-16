@@ -1,5 +1,6 @@
 package fr.formation.user;
 
+import org.hibernate.exception.ConstraintViolationException;
 import fr.formation.hello.HelloController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,11 +109,10 @@ public class UserService implements UserDetailsService {
      * @param codeDept
      */
 
-    public void createNewUser(String username, String password, String email, String nomVille,
-                              String codeVille,  String codeDept) {
+    public User createNewUser(String username, String password, String email, String nomVille,
+                              String codeVille, String codeDept) throws UserException{
 
-
-        if (checkPassword(password)) {
+        try {
             User user = new User();
             user.setUsername(username);
             user.setPassword(password);
@@ -120,18 +120,33 @@ public class UserService implements UserDetailsService {
             user.setNomVille(nomVille);
             user.setCodeVille(codeVille);
             user.setCodeDept(codeDept);
-
-            user = userRepository.save(user);
+            if(isUsernameExist(username)){
+                throw new UserException("Identifiant déjà existant");
+            }
+            if (!checkPassword(password)) {
+                throw new UserException("Le format du mot de passe est invalide");
+            }
+            return userRepository.save(user);
         }
-
-
-        logger.info(" ( user service add user ) " + nomVille + " , " + codeVille +  " , " + codeDept);
-
+        catch (ConstraintViolationException e) {
+            throw new UserException("Identifiant déjà existant");
+        }catch (UserException e) {
+            throw e;
+        }catch (Exception e) {
+            throw new UserException("Une erreur inconnue est survenue");
+        }
     }
 
+    public boolean isUsernameExist(String username) {
+
+        User user = userRepository.findByUsername(username);
+        if (user != null && user.getUsername().equals(username)){
+            return true;
+        }
+        return false;
+    }
 
     public boolean checkPassword(String password) {
-
         int min = 8;
         int digit = 0;
         int upCount = 0;
@@ -148,7 +163,6 @@ public class UserService implements UserDetailsService {
                 if (Character.isDigit(c)) {
                     digit++;
                 }
-
             }
             if (loCount >= 1 && upCount >= 1 && digit >= 1) {
                 logger.info("Passwod Correct " );
@@ -156,16 +170,12 @@ public class UserService implements UserDetailsService {
             }
             else {
                 logger.info("Passwod incorrect => LowerCase : " + loCount + ", UpperCase : "+ upCount +", Digit : " +digit );
-
             }
         }
         else {
             logger.info("Passwod incorrect => Lenght : "  + password.length() );
-
         }
-
 
         return false;
     }
-
 }
