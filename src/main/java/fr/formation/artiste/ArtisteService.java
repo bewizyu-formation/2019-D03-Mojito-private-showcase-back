@@ -37,6 +37,7 @@ public class ArtisteService {
     /**
      * Call service to Add a new artist
      *
+     * @param  username
      * @param namedArtist
      * @param image
      * @param grade
@@ -46,19 +47,20 @@ public class ArtisteService {
      * @param phoneNumber
      * @param password
      * @param email
-     * @param departmentChosen
+
      * @param nomVille
      * @param codeVille
      */
-    public void addNewArtiste(String namedArtist, String image,
+    public void addNewArtiste(String username, String namedArtist, String image,
                               double grade, String longDescription,
                               String shortDescription, String webSite,
                               String phoneNumber, String password,
-                              String email, List<String> departmentChosen,
-                              String nomVille, String codeVille) {
+                              String email,
+                              String nomVille, String codeVille, String codeDept) {
 
 
         Artiste artiste = new Artiste();
+        artiste.setUsername(username);
         artiste.setNamedArtist(namedArtist);
         artiste.setEmail(email);
         artiste.setPassword(password);
@@ -71,7 +73,8 @@ public class ArtisteService {
         artiste.setGrade(grade);
         artiste.setNomVille(nomVille);
         artiste.setCodeVille(codeVille);
-        artiste.setDepartmentChosen(departmentChosen);
+        artiste.setCodeDept(codeDept);
+
 
         artiste = artisteRepository.save(artiste);
 

@@ -36,9 +36,8 @@ public interface ArtisteRepository extends JpaRepository<Artiste, Long> {
      * @param codeDept
      * @return
      */
-    @Query("SELECT a FROM Artiste a INNER JOIN a.departmentChosen d "  +
-            " where d=:departmentChosen")
-    public List<Artiste> findByDepartmentChosen(@Param("departmentChosen") String codeDept);
+    @Query("SELECT a FROM Artiste a  where a.codeDept=:codeDept")
+    public List<Artiste> findByDepartmentChosen(@Param("codeDept") String codeDept);
 
 
 }

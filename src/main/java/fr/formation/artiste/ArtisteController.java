@@ -45,6 +45,7 @@ public class ArtisteController {
      */
     @PostMapping("/create")
     public void signin(
+            @RequestParam String username,
             @RequestParam String namedArtist,
             @RequestParam String image,
             @RequestParam double grade,
@@ -54,20 +55,22 @@ public class ArtisteController {
             @RequestParam String phoneNumber,
             @RequestParam String password,
             @RequestParam String email,
-            @RequestParam(value = "departmentChosen") List<String> departmentChosen,
             @RequestParam String nomVille,
-            @RequestParam String codeVille) {
+            @RequestParam String codeVille,
+            @RequestParam String codeDept
+
+    ) {
 
 
 
         if (checkPassword(password)) {
-            artisteService.addNewArtiste(namedArtist, image, grade,
+            artisteService.addNewArtiste(username,namedArtist, image, grade,
                     longDescription, shortDescription, webSite,
                     phoneNumber, passwordEncoder.encode(password),
-                    email, departmentChosen,
-                    nomVille, codeVille);
+                    email,
+                    nomVille, codeVille ,codeDept );
 
-            logger.info("1. Controller Artiste signin: " + departmentChosen.get(1) + " || " + namedArtist);
+            logger.info("1. Controller Artiste signin: " +" || " + namedArtist + "  " +  phoneNumber) ;
         }
 
     }
@@ -86,12 +89,13 @@ public class ArtisteController {
         logger.info("1. Controller find Artiste by Name : "+ name );
     }
 
+
     @GetMapping("/listByDept")
     public void getArtisteByDept(@RequestParam String codeDept) {
 
         artisteService.getArtisteByDept(codeDept);
         logger.info("1. Controller ListeArtiste find by dept: " + codeDept );
-
+        logger.info("1. Controller ListeArtiste object: " + artisteService.getArtisteByDept(codeDept) );
 
     }
 
