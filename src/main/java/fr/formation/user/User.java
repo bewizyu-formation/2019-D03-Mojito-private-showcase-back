@@ -5,7 +5,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -40,9 +39,6 @@ public class User {
 
     @Column(name = "codeVille")
     private String codeVille;
-
-    @Column(name = "nomDept")
-    private String nomDept;
 
     @Column(name = "codeDept")
     private String codeDept;
@@ -124,14 +120,6 @@ public class User {
 
     public void setCodeVille(String codeVille) {
         this.codeVille = codeVille;
-    }
-
-    public String getNomDept() {
-        return nomDept;
-    }
-
-    public void setNomDept(String nomDept) {
-        this.nomDept = nomDept;
     }
 
     public String getCodeDept() {

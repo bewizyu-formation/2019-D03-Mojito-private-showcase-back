@@ -22,7 +22,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/users/create/?username=user2&email=admin@free.f&password=dSfefergkg1&nomVille=Amiens&codeVille=01&nomDept=Ain&codeDept=80021",
+					"raw": "http://localhost:8080/users/create?username=user25&email=admin@free.f&password=dSfefergkg1AA&nomVille=Amiens&codeVille=01&codeDept=80021",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -30,13 +30,12 @@
 					"port": "8080",
 					"path": [
 						"users",
-						"create",
-						""
+						"create"
 					],
 					"query": [
 						{
 							"key": "username",
-							"value": "user2"
+							"value": "user25"
 						},
 						{
 							"key": "email",
@@ -44,7 +43,7 @@
 						},
 						{
 							"key": "password",
-							"value": "dSfefergkg1"
+							"value": "dSfefergkg1AA"
 						},
 						{
 							"key": "nomVille",
@@ -56,7 +55,8 @@
 						},
 						{
 							"key": "nomDept",
-							"value": "Ain"
+							"value": "Ain",
+							"disabled": true
 						},
 						{
 							"key": "codeDept",

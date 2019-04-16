@@ -59,7 +59,8 @@ public class BoostrapData {
 
 
         artisteService.addNewArtiste(
-                "Daft Punk",
+                "user4599",
+                "hDaft Punk\"",
                 "https://static1.squarespace.com/static/5372c95be4b0875c414451cb/t/56942a2669a91a5371ee87a1/1452550710892/?format=750w",
                 3,
                 "Daft Punk, est un groupe de musique électronique français, originaire de Paris. Composé de Thomas Bangalter et Guy-Manuel de Homem-Christo, le groupe est actif depuis 1993",
@@ -68,14 +69,10 @@ public class BoostrapData {
                 "303-504-650",
                 "Fbjdff25",
                 "admin@free.fr",
-                new ArrayList<String>() {
-                    {
-                        add("01");
-                        add("69");
-                        add("75");
-                    }  }
-               , "Amiens",
+                "Amiens",
+                "01850",
                 "01"
+
 
 
         );

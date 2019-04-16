@@ -20,7 +20,6 @@ import java.util.List;
  * The type Commune controller.
  */
 @RestController
-@Secured(SecurityConstants.ROLE_USER)
 @RequestMapping("/communes")
 public class CommuneController {
 
@@ -47,7 +46,14 @@ public class CommuneController {
 	 */
 	@GetMapping("/")
 	public ResponseEntity<List<Commune>> getCommunes(@RequestParam final String nom) {
-		final List<Commune> communes = this.communeService.getCommunes(nom);
+		List<Commune> communes = this.communeService.getCommunes(nom);
+		if (communes != null) {
+			if(communes.size() > 19)
+			{ communes = communes.subList(0, 19); }
+			else  	{ communes = communes.subList(0, communes.size() ); }
+
+
+		}
 		return new ResponseEntity<>(communes, HttpStatus.OK);
 	}
 
