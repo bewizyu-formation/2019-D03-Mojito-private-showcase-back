@@ -1,9 +1,12 @@
 package fr.formation.artiste;
 
 import fr.formation.hello.HelloController;
+import fr.formation.user.UserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import sun.reflect.generics.tree.VoidDescriptor;
@@ -28,7 +31,13 @@ public class ArtisteController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private  ArtisteRepository   artisteRepository;
+    @GetMapping("/")
+    public ResponseEntity getAllArtiste() {
+       return ResponseEntity.ok(artisteRepository.findAll());
 
+    }
 
     /**
      * Signin a new artist
@@ -44,7 +53,7 @@ public class ArtisteController {
      * @param email
      */
     @PostMapping("/create")
-    public void signin(
+    public ResponseEntity<Artiste> signin(
             @RequestParam String username,
             @RequestParam String namedArtist,
             @RequestParam String image,
@@ -59,19 +68,18 @@ public class ArtisteController {
             @RequestParam String codeVille,
             @RequestParam String codeDept
 
-    ) {
+    ) throws ArtisteException {
 
+        logger.info("1. Controller Artiste signin: " +" || " + namedArtist + "  " +  phoneNumber) ;
 
-
-        if (checkPassword(password)) {
-            artisteService.addNewArtiste(username,namedArtist, image, grade,
+          Artiste artiste =   artisteService.addNewArtiste(username,namedArtist, image, grade,
                     longDescription, shortDescription, webSite,
                     phoneNumber, passwordEncoder.encode(password),
                     email,
                     nomVille, codeVille ,codeDept );
 
-            logger.info("1. Controller Artiste signin: " +" || " + namedArtist + "  " +  phoneNumber) ;
-        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }
 
@@ -97,45 +105,6 @@ public class ArtisteController {
         logger.info("1. Controller ListeArtiste find by dept: " + codeDept );
         logger.info("1. Controller ListeArtiste object: " + artisteService.getArtisteByDept(codeDept) );
 
-    }
-
-
-    public boolean checkPassword(String password) {
-
-        int min = 8;
-        int digit = 0;
-        int upCount = 0;
-        int loCount = 0;
-        if (password.length() >= min) {
-            for (int i = 0; i < password.length(); i++) {
-                char c = password.charAt(i);
-                if (Character.isUpperCase(c)) {
-                    upCount++;
-                }
-                if (Character.isLowerCase(c)) {
-                    loCount++;
-                }
-                if (Character.isDigit(c)) {
-                    digit++;
-                }
-
-            }
-            if (loCount >= 1 && upCount >= 1 && digit >= 1) {
-                logger.info("Passwod Correct " );
-                return true;
-            }
-            else {
-                logger.info("Passwod incorrect => LowerCase : " + loCount + ", UpperCase : "+ upCount +", Digit : " +digit );
-
-            }
-        }
-        else {
-            logger.info("Passwod incorrect => Lenght : "  + password.length() );
-
-        }
-
-
-        return false;
     }
 
 
