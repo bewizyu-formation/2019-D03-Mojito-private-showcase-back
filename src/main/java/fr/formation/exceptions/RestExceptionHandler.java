@@ -1,5 +1,6 @@
 package fr.formation.exceptions;
 
+import fr.formation.artiste.ArtisteException;
 import fr.formation.user.UserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         HttpStatus status;
 
-        if (ex instanceof UserException) {
+        if ( (ex instanceof UserException) || (ex instanceof ArtisteException)   ) {
             status = HttpStatus.BAD_REQUEST;
         } else {
             status = HttpStatus.INTERNAL_SERVER_ERROR;

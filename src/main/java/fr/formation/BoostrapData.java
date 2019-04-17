@@ -1,5 +1,6 @@
 package fr.formation;
 
+import fr.formation.artiste.ArtisteException;
 import fr.formation.artiste.ArtisteService;
 import fr.formation.security.SecurityConstants;
 import fr.formation.user.UserService;
@@ -58,24 +59,26 @@ public class BoostrapData {
         );
 
 
-        artisteService.addNewArtiste(
-                "user4599",
-                "hDaft Punk\"",
-                "https://static1.squarespace.com/static/5372c95be4b0875c414451cb/t/56942a2669a91a5371ee87a1/1452550710892/?format=750w",
-                3,
-                "Daft Punk, est un groupe de musique électronique français, originaire de Paris. Composé de Thomas Bangalter et Guy-Manuel de Homem-Christo, le groupe est actif depuis 1993",
-                "Daft Punk, est un groupe de musique électronique français, originaire de Paris. Composé de Thomas Bangalter et Guy-Manuel de Homem-Christo, le groupe est actif depuis 1993",
-                "https://daftpunk.com/",
-                "303-504-650",
-                "Fbjdff25",
-                "admin@free.fr",
-                "Amiens",
-                "01850",
-                "01"
+        try {
+            artisteService.addNewArtiste(
+                    "user4599",
+                    "hDaft Punk\"",
+                    "https://static1.squarespace.com/static/5372c95be4b0875c414451cb/t/56942a2669a91a5371ee87a1/1452550710892/?format=750w",
+                    3,
+                    "Daft Punk, est un groupe de musique électronique français, originaire de Paris. Composé de Thomas Bangalter et Guy-Manuel de Homem-Christo, le groupe est actif depuis 1993",
+                    "Daft Punk, est un groupe de musique électronique français, originaire de Paris. Composé de Thomas Bangalter et Guy-Manuel de Homem-Christo, le groupe est actif depuis 1993",
+                    "https://daftpunk.com/",
+                    "303-504-650",
+                    "F25Ujbjdff25",
+                    "admin@free.fr",
+                    "Amiens",
+                    "01850",
+                    "01"
 
-
-
-        );
+            );
+        } catch (ArtisteException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -34,8 +34,7 @@ public class UserController {
 
     private DepartementService departementService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
 
     @Autowired
     public UserController(CommuneService communeService, DepartementService departementService) {
@@ -76,7 +75,7 @@ public class UserController {
 								 @RequestParam String codeVille, @RequestParam String codeDept) throws UserException{
 
 		logger.info("requ controller signin: " + username  + "password " +  password);
-		User user = userService.createNewUser(username, passwordEncoder.encode(password), email, nomVille, codeVille, codeDept);
+		User user = userService.createNewUser(username, password, email, nomVille, codeVille, codeDept);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
 	}

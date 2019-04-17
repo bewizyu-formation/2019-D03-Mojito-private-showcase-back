@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -27,6 +28,9 @@ public class UserService implements UserDetailsService {
     private UserRoleRepository userRoleRepository;
 
 
+    private PasswordEncoder passwordEncoder;
+
+
     /**
      * The Logger.
      */
@@ -39,10 +43,11 @@ public class UserService implements UserDetailsService {
      * @param userRoleRepository the user role repository
      */
     @Autowired
-    public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository
+    public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository, PasswordEncoder passwordEncoder
     ) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
+        this.passwordEncoder = passwordEncoder;
 
 
     }
@@ -115,7 +120,7 @@ public class UserService implements UserDetailsService {
         try {
             User user = new User();
             user.setUsername(username);
-            user.setPassword(password);
+            user.setPassword(passwordEncoder.encode(password));
             user.setEmail(email);
             user.setNomVille(nomVille);
             user.setCodeVille(codeVille);
@@ -140,7 +145,7 @@ public class UserService implements UserDetailsService {
     public boolean isUsernameExist(String username) {
 
         User user = userRepository.findByUsername(username);
-        if (user != null && user.getUsername().equals(username)){
+        if ((user != null) && (user.getUsername().equals(username)) ){
             return true;
         }
         return false;

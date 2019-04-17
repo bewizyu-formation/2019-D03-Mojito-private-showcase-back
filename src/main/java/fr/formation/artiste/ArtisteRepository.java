@@ -1,6 +1,7 @@
 package fr.formation.artiste;
 
 import fr.formation.artiste.Artiste;
+import fr.formation.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -28,6 +29,16 @@ public interface ArtisteRepository extends JpaRepository<Artiste, Long> {
      * @return the artist
      */
     public Artiste findById(long id);
+
+
+    /**
+     * Find artist by username
+     *
+     * @param username
+     *
+     * @return the Artist
+     */
+    public Artiste findByUsername(String username);
 
 
     /**
