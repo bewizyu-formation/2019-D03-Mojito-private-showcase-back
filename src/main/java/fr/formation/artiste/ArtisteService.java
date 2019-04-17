@@ -7,6 +7,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public class ArtisteService {
 
     private ArtisteRepository artisteRepository;
 
+    private PasswordEncoder passwordEncoder;
+
     /**
      * The Logger.
      */
@@ -32,8 +35,9 @@ public class ArtisteService {
      * @param artisteRepository the artiste repository
      */
     @Autowired
-    public ArtisteService(ArtisteRepository artisteRepository) {
+    public ArtisteService(ArtisteRepository artisteRepository, PasswordEncoder passwordEncoder) {
         this.artisteRepository = artisteRepository;
+        this.passwordEncoder = passwordEncoder;
 
     }
 
@@ -65,7 +69,7 @@ public class ArtisteService {
             artiste.setUsername(username);
             artiste.setNamedArtist(namedArtist);
             artiste.setEmail(email);
-            artiste.setPassword(password);
+            artiste.setPassword(passwordEncoder.encode(password));
 
             artiste.setImage(image);
             artiste.setLongDescription(longDescription);

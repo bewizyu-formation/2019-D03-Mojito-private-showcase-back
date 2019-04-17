@@ -69,7 +69,7 @@ public class BoostrapData {
                     "Daft Punk, est un groupe de musique électronique français, originaire de Paris. Composé de Thomas Bangalter et Guy-Manuel de Homem-Christo, le groupe est actif depuis 1993",
                     "https://daftpunk.com/",
                     "303-504-650",
-                    "Fbjdff25",
+                    "F25Ujbjdff25",
                     "admin@free.fr",
                     "Amiens",
                     "01850",

@@ -29,8 +29,7 @@ public class ArtisteController {
     @Autowired
     private ArtisteService artisteService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
     @Autowired
     private  ArtisteRepository   artisteRepository;
     @GetMapping("/")
@@ -74,7 +73,7 @@ public class ArtisteController {
 
           Artiste artiste =   artisteService.addNewArtiste(username,namedArtist, image, grade,
                     longDescription, shortDescription, webSite,
-                    phoneNumber, passwordEncoder.encode(password),
+                    phoneNumber, password,
                     email,
                     nomVille, codeVille ,codeDept );
 
